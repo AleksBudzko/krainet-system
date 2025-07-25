@@ -17,13 +17,16 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getAll(Authentication auth) {
-        // only ADMIN can list all
+        boolean isAdmin = auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        if (!isAdmin) {
+            return ResponseEntity.status(403).build();
+        }
         return ResponseEntity.ok(service.getAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getOne(@PathVariable Long id, Authentication auth) {
-        // USER only their own
         checkAccess(id, auth);
         return ResponseEntity.ok(service.get(id));
     }

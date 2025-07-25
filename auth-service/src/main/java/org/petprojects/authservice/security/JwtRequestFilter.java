@@ -1,7 +1,7 @@
 package org.petprojects.authservice.security;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.lang.NonNullApi;
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -20,9 +20,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest req,
-                                    HttpServletResponse res,
-                                    FilterChain chain)
+    protected void doFilterInternal(
+            @NonNull HttpServletRequest req,
+            @NonNull HttpServletResponse res,
+            @NonNull FilterChain chain)
             throws ServletException, IOException {
         String authHeader = req.getHeader("Authorization");
         String token = null;

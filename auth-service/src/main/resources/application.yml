@@ -11,10 +11,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
-flyway:
+spring.flyway:
   enabled: true
 
-rabbitmq:
+spring.rabbitmq:
   host: rabbitmq
   port: 5672
 
