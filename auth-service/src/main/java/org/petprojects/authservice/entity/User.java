@@ -1,7 +1,8 @@
 package org.petprojects.authservice.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.*;
+
 
 @Entity
 @Table(name = "users")
