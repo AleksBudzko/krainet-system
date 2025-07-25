@@ -20,4 +20,4 @@ spring.rabbitmq:
 
 jwt:
   secret: VeryVeryStrongSecretKey
-  expiration-ms: 3600000    # 1 ???
+  expiration-ms: 3600000
