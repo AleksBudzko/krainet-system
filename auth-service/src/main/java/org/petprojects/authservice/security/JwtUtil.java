@@ -9,39 +9,32 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
-    @Value("${jwt.secret}")
-    private String secret;
-
-    @Value("${jwt.expiration-ms}")
-    private long expirationMs;
+    @Value("${jwt.secret}") private String secret;
+    @Value("${jwt.expiration-ms}") private long expirationMs;
 
     public String generateToken(UserDetails userDetails) {
-        Date now = new Date();
-        Date expiry = new Date(now.getTime() + expirationMs);
+        Date now = new Date(), exp = new Date(now.getTime() + expirationMs);
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .claim("roles", userDetails.getAuthorities())
                 .setIssuedAt(now)
-                .setExpiration(expiry)
+                .setExpiration(exp)
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
 
     public String extractUsername(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+        return Jwts.parser().setSigningKey(secret)
+                .parseClaimsJws(token).getBody().getSubject();
     }
 
-    public boolean validateToken(String token, UserDetails userDetails) {
+    public boolean validateToken(String token, UserDetails ud) {
         try {
-            Claims claims = Jwts.parser().setSigningKey(secret)
+            var claims = Jwts.parser().setSigningKey(secret)
                     .parseClaimsJws(token).getBody();
-            return claims.getSubject().equals(userDetails.getUsername())
+            return claims.getSubject().equals(ud.getUsername())
                     && !claims.getExpiration().before(new Date());
-        } catch (JwtException | IllegalArgumentException e) {
+        } catch (JwtException|IllegalArgumentException e) {
             return false;
         }
     }

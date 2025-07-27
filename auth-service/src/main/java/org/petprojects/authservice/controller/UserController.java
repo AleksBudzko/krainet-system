@@ -19,9 +19,7 @@ public class UserController {
     public ResponseEntity<List<UserDto>> getAll(Authentication auth) {
         boolean isAdmin = auth.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
-        if (!isAdmin) {
-            return ResponseEntity.status(403).build();
-        }
+        if (!isAdmin) return ResponseEntity.status(403).build();
         return ResponseEntity.ok(service.getAll());
     }
 
@@ -35,14 +33,16 @@ public class UserController {
     public ResponseEntity<UserDto> update(
             @PathVariable Long id,
             @RequestBody UpdateUserRequest req,
-            Authentication auth) {
+            Authentication auth
+    ) {
         checkAccess(id, auth);
         return ResponseEntity.ok(service.update(id, req));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(
-            @PathVariable Long id, Authentication auth) {
+            @PathVariable Long id, Authentication auth
+    ) {
         checkAccess(id, auth);
         service.delete(id);
         return ResponseEntity.noContent().build();

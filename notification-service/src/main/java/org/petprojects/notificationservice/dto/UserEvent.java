@@ -1,4 +1,4 @@
-package org.petprojects.authservice.dto;
+package org.petprojects.notificationservice.dto;
 
 import lombok.*;
 

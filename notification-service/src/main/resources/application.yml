@@ -1,1 +1,23 @@
-spring.application.name=notification-service
+spring:
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+
+  mail:
+    host: smtp.example.com
+    port: 587
+    username: your_smtp_user
+    password: your_smtp_pass
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+notification:
+  admin-emails:
+    - admin@example.com
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

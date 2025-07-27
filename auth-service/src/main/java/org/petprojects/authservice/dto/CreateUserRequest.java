@@ -2,10 +2,7 @@ package org.petprojects.authservice.dto;
 
 import lombok.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class CreateUserRequest {
     private String username;
     private String password;
