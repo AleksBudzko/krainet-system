@@ -16,6 +16,10 @@ spring:
     host: rabbitmq
     port: 5672
 
+  security:
+    debug: true
+
 jwt:
   secret: ChangeThisToAStrongSecretKey
   expiration-ms: 3600000
+

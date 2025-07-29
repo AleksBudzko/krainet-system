@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto create(CreateUserRequest req) {
         User u = mapper.fromCreate(req);
-        u.setPassword(encoder.encode(req.getPassword()));
+        u.setPassword(req.getPassword());
         u.setRole("ROLE_USER");
         User saved = repo.save(u);
         if ("ROLE_USER".equals(saved.getRole())) publish("USER_CREATED", saved);
